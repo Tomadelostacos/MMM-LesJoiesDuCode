@@ -5,7 +5,7 @@ This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror
 MMM-LesJoiesDuCode provides the last post from [Les Joies Du Code](https://lesjoiesducode.fr), or [TheCodingLove](https://thecodinglove.com) (The english version). 
 
 
-![Demo](https://github.com/NolanKingdon/MMM-LesJoiesDuCode/blob/master/images/demo.gif)
+![Demo](https://github.com/Tomadelostacos/MMM-LesJoiesDuCode/blob/master/images/demo.gif)
 
 ## Using the module
 
