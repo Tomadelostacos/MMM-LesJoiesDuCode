@@ -22,7 +22,7 @@ var config = {
     modules: [
         {
             module: "MMM-LesJoiesDuCode",
-			position: "top_center",
+            position: "top_center",
             config: {
                 updateInterval: 600000,
                 grayscale: true, 
