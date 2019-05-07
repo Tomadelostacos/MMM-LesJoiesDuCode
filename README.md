@@ -25,7 +25,8 @@ var config = {
 			position: "top_center",
             config: {
                 updateInterval: 600000,
-                grayscale: true       
+                grayscale: true, 
+                language: "fr"     
             }
         }
     ]
@@ -39,5 +40,5 @@ var config = {
 |----------------- |-----------
 | `updateInterval` | *Optional* How frequently you want it to update. By default: One hour
 | `grayscale`      | *Optional* Makes all GIFs black and white (Looks better i think). By default: Yep ! <br/> <br/>
-| `language`       | *Optional* . By default: Yep ! <br/> <br/>
+| `language`       | *Optional* "fr" for French, and "en" for English By default: "en" for English <br/> <br/>
 
