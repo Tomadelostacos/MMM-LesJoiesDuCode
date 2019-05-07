@@ -1,0 +1,68 @@
+/*
+ *
+ * MMM-LesJoiesDuCode
+ *
+ * 
+ * MIT Licensed.
+ *
+ * Custom here your css module
+ *
+ */
+
+#ljdc-wrapper {
+	width: 400px;
+} 
+
+#flex-wrapper div {
+	width: 100%;
+}
+
+#flex-wrapper {
+	display: flex;
+	align-content: center;
+}
+
+#ljdc-name {
+	border-bottom: 3px solid white;
+	color: white;
+}
+
+#ljdc-name {
+	text-align: center;
+}
+
+#ljdc-content {
+	width: 100px;
+	height: auto;
+}
+
+#ljdc-info video{
+	width: 100%;
+}
+
+#ljdc-content-grayscale {
+	position: relative;
+	bottom: 50px;
+	width: 400px;
+	height: auto;
+	filter: grayscale(100%);
+}
+
+#ljdc-wrapper table {
+	line-height: 1em;
+}
+
+#ljdc-wrapper #poke-info{
+	text-align: center;
+}
+#ljdc-wrapper table tr td {
+	font-size: 12pt;
+	padding: 0px;
+	text-transform: capitalize;
+}
+
+#ljdc-table-name {
+	color: DDD;
+	font-weight: 800;
+	text-align: left;
+}
