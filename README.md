@@ -6,6 +6,7 @@ MMM-LesJoiesDuCode provides the last post from [Les Joies Du Code](https://lesjo
 
 
 ![Demo](https://github.com/Tomadelostacos/MMM-LesJoiesDuCode/blob/master/images/demo.gif)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTomadelostacos%2FMMM-LesJoiesDuCode.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FTomadelostacos%2FMMM-LesJoiesDuCode?ref=badge_shield)
 
 ## Using the module
 
@@ -42,3 +43,7 @@ var config = {
 | `grayscale`      | *Optional* Makes all GIFs black and white (Looks better i think). By default: Yep ! <br/> <br/>
 | `language`       | *Optional* "fr" for French, and "en" for English By default: "en" for English <br/> <br/>
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FTomadelostacos%2FMMM-LesJoiesDuCode.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FTomadelostacos%2FMMM-LesJoiesDuCode?ref=badge_large)
