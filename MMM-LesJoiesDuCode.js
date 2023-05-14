@@ -4,79 +4,84 @@
  * Module: MMM-LesJoiesDuCode
  *
  * By Thomas Favre (TomaDeLosTacos)
+ * Review by @bugsounet (05/2023)
  * MIT Licensed.
  */
 
 "use strict";
 
 Module.register("MMM-LesJoiesDuCode", {
+  defaults: {
+    updateInterval: 3600000,
+    rotateInterval: 60000,
+    grayscale: false,
+    language: "fr"
+  },
 
-	result: { title: "loading...", content: ""},
+  start: function() {
+    this.results= [ { title: "loading...", content: ""} ]
+    this.rotate = null
+    this.sendSocketNotification("INIT", this.config)
+  },
 
-	defaults: {
-		updateInterval: 3600000,
-		grayscale: true, 
-		language: "fr"
-	},
+  getDom: function() {
+    var wrapper = document.createElement("div")
+    wrapper.id = "ljdc-wrapper"
 
-	start: function() {
-		this.getData();
-		this.scheduleUpdate();
-	},
+    var ljdcWrapper = document.createElement("div")
+    ljdcWrapper.id = "ljdc-info"
 
-	getDom: function() {
-		var wrapper = document.createElement("div");
-		wrapper.id = "ljdc-wrapper";
+    var flexWrapper = document.createElement("div")
+    flexWrapper.id = "flex-wrapper"
 
-		var ljdcWrapper = document.createElement("div");
-		ljdcWrapper.id = "ljdc-info";
+    var ljdcName = document.createElement("p")
+    ljdcName.innerHTML = this.results[0].title
+    ljdcName.id = "ljdc-name"
+    wrapper.appendChild(ljdcName)
 
-		var flexWrapper = document.createElement("div");
-		flexWrapper.id = "flex-wrapper";
+    var ljdcContent = document.createElement("div")
+    ljdcContent.innerHTML = this.results[0].content
 
-		var ljdcName = document.createElement("p");
-		ljdcName.innerHTML = this.result.title;
-		ljdcName.id = "ljdc-name";
-		wrapper.appendChild(ljdcName);
-		
-		var ljdcContent = document.createElement("div");
-		ljdcContent.innerHTML = this.result.content;
-		ljdcContent.id = "ljdc-content";
-		if(this.config.grayscale) { 
-			ljdcContent.id = "ljdc-content-grayscale"; 
-		}
-		ljdcWrapper.appendChild(ljdcContent);
-		
-		flexWrapper.appendChild(ljdcWrapper);
-		
-		wrapper.appendChild(flexWrapper);
+    ljdcContent.id = "ljdc-content"
+    if(this.config.grayscale) ljdcContent.id = "ljdc-content-grayscale"
 
-		return wrapper;
-	},
+    ljdcWrapper.appendChild(ljdcContent)
 
-	getData: function() {
-		var data_url = "https://lesjoiesducode.fr/wp-json/wp/v2/posts";
-		if(this.config.language == "en")
-			data_url = "https://thecodinglove.com/wp-json/wp/v2/posts";
+    flexWrapper.appendChild(ljdcWrapper)
 
-		this.sendSocketNotification("GET_DATA", data_url);
-		//this.sendSocketNotification("GET_DATA", (this.config.language == "en" ? "https://thecodinglove.com/wp-json/wp/v2/posts" : "https://lesjoiesducode.fr/wp-json/wp/v2/posts"));
-	},
+    wrapper.appendChild(flexWrapper)
 
-	scheduleUpdate: function() {
-		setInterval(() => {
-			this.getData();
-		}, this.config.updateInterval);
-	},
+    return wrapper
+  },
 
-	socketNotificationReceived: function(notification, payload) {
-		if (notification == "DATA_RESULT") {
-			this.result = { title: payload.title.rendered, content: payload.content.rendered };
-			this.updateDom(1000);
-		}
-	},
-	
-	getStyles: function() {
-		return [this.file('MMM-LesJoiesDuCode.css')]
-	},
+  socketNotificationReceived: async function(notification, payload) {
+    if (notification == "DATA_RESULTS") {
+      clearInterval(this.rotate)
+      this.rotate = null
+      this.results = payload
+      this.hide(500, () => {this.reFreshContent()}, {lockString: "ljdc"})
+      this.rotate = setInterval(() => {
+        this.hide(500, () => {this.reFreshContent()}, {lockString: "ljdc"})
+      }, this.config.rotateInterval)
+    }
+  },
+
+  reFreshContent: function () {
+    let ramdom = this.getRandomInt(this.results.length)
+    let name = document.getElementById("ljdc-name")
+    name.innerHTML = this.results[ramdom].title
+    let content = document.getElementById("ljdc-content")
+    content.innerHTML = this.results[ramdom].content
+    let video = content.querySelector("video")
+    if (video) video.play()
+    this.show(500, () => {}, {lockString: "ljdc"})
+  },
+
+  getStyles: function() {
+    return [this.file('MMM-LesJoiesDuCode.css')]
+  },
+
+  getRandomInt: function(max) {
+    return Math.floor(Math.random() * max)
+  }
 });

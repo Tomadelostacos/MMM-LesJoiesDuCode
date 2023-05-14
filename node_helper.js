@@ -2,37 +2,47 @@
  * Node Helper: MMM-LesJoiesDuCode
  *
  * By AceLan Kao
+ * Review by @bugsounet (05/2023)
  * MIT Licensed
  */
 
-var NodeHelper = require('node_helper');
-var request = require('request');
+var NodeHelper = require('node_helper')
+const axios = require("axios")
 
 module.exports = NodeHelper.create({
-	start: function () {
-		console.log('MMM-LesJoiesDuCode helper started');
-	},
+  start: function () {
+    this.data_url = "https://lesjoiesducode.fr/wp-json/wp/v2/posts"
+  },
 
-	getData: function (data_url) {
-		var self = this;
-		request({ url: data_url,
-			headers:{
-				'Accept':'application/json',
-				'User-Agent': 'MMM-LesJoiesDuCode (https://github.com/Tomadelostacos/MMM-LesJoiesDuCode)'
-			},
-			method: 'GET' }, function (error, response, body) {
-			if (!error && response.statusCode == 200) {
-				var result = JSON.parse(response.body);
-				console.log(result[0].title.rendered);
-				console.log(result[0].content.rendered);
-				self.sendSocketNotification('DATA_RESULT', result[0]);
-			}
-		});
-	},
+  getData: function () {
+    let results = []
+    axios({ url: this.data_url+"?seed="+Date.now() })
+      .then(response => {
+        if (response.data.length) {
+          response.data.forEach(ljdc => {
+            let content = {}
+            content.title = ljdc.title.rendered
+            content.content = ljdc.content.rendered
+            results.push(content)
+            console.log("[LJDC] Fetch:", ljdc.title.rendered)
+          })
+          this.sendSocketNotification("DATA_RESULTS", results)
+        }
+      })
+      .catch(error => {
+        console.error("[LJDC] Fetch data error:", error)
+      })
+  },
 
-	socketNotificationReceived: function(notification, payload) {
-		if (notification == 'GET_DATA') {
-			this.getData(payload);
-		}
-	}
+  socketNotificationReceived: function(notification, payload) {
+    if (notification == "INIT") this.initialize(payload)
+  },
+
+  initialize: function(payload) {
+    console.log('[LJDC] MMM-LesJoiesDuCode started')
+    this.config= payload
+    if (this.config.language == "en") this.data_url = "https://thecodinglove.com/wp-json/wp/v2/posts"
+    this.getData()
+    setInterval(() => { this.getData() }, this.config.updateInterval)
+  }
 });
