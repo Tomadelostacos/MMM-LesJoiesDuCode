@@ -26,7 +26,7 @@ var config = {
       module: "MMM-LesJoiesDuCode",
       position: "top_center",
       config: {
-        updateInterval: 600000,
+        updateInterval: 3600000,
         rotateInterval: 60000,
         grayscale: true,
         language: "fr"
@@ -41,8 +41,8 @@ var config = {
 
 | Option           | Description
 |----------------- |-----------
-| `updateInterval` | *Optional* How frequently you want it to update. By default: One hour
-| `rotateInterval` | *Optional* Rotate time between each GIFs. By default: 60 secs
+| `updateInterval` | *Optional* How frequently you want it to update (in ms). By default: One hour
+| `rotateInterval` | *Optional* Rotate time between each GIFs (in ms). By default: 60 secs
 | `grayscale`      | *Optional* Makes all GIFs black and white (Looks better i think). By default: true
 | `language`       | *Optional* "fr" for French, and "en" for English By default: "fr"
 
