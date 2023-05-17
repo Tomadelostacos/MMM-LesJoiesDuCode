@@ -1,18 +1,14 @@
 {
   "name": "MMM-LesJoiesDuCode",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Display last post from LesJoiesDuCode.fr, or TheCodingLove.com",
   "main": "MMM-LesJoiesDuCode.js",
-  "author": "",
+  "authors": [
+    "Tomadelostacos",
+    "bugsounet"
+  ],
   "license": "MIT",
-  "devDependencies": {
-    "grunt": "latest",
-    "grunt-eslint": "latest",
-    "grunt-jsonlint": "latest",
-    "grunt-markdownlint": "^1.0.13",
-    "grunt-stylelint": "latest",
-    "grunt-yamllint": "latest",
-    "stylelint-config-standard": "latest",
-    "time-grunt": "latest"
+  "dependencies": {
+    "axios": "^1.4.0"
   }
 }
